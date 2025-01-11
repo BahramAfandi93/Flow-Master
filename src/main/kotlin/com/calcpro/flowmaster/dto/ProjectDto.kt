@@ -5,11 +5,10 @@ import com.calcpro.flowmaster.dao.entity.AppUser
 data class ProjectRequest(
     val projectName: String,
     val projectLocation: String,
-    val engineerId: Long? = null
+    val userId: AppUser? = null
 )
 
 class ProjectResponse(
     val projectName: String,
-    val projectLocation: String,
-    val engineer: AppUser
+    val projectLocation: String
 )

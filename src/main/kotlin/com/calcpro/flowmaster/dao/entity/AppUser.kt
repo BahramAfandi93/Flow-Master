@@ -1,13 +1,11 @@
 package com.calcpro.flowmaster.dao.entity
 
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDate
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType.IDENTITY
-import javax.persistence.Id
-import javax.persistence.Table
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 
@@ -15,17 +13,15 @@ import org.hibernate.annotations.UpdateTimestamp
 @Table(name = "app_user")
 class AppUser(
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    var id: Long? = null,
-    var name: String,
-    var lastname: String,
-    var email: String,
-    var password: String,
-    var birthday: LocalDate,
+    var id: String? = null,
+    var name: String?,
+    var lastname: String? = null,
+    var email: String? = null,
+    var password: String? = null,
+    var birthday: LocalDate? = null,
     var position: String? = null,
     var company: String? = null,
     var phone: String? = null,
-    var role: Role? = null,
 
     @CreationTimestamp
     @Column(name = "created_at")

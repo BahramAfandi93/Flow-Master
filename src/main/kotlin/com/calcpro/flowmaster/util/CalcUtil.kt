@@ -1,19 +1,24 @@
 package com.calcpro.flowmaster.util
 
-import com.calcpro.flowmaster.dao.entity.Structure
 import com.calcpro.flowmaster.dao.entity.Result.FLOW_FAILED
 import com.calcpro.flowmaster.dao.entity.Result.FLOW_IS_SATISFIED
+import com.calcpro.flowmaster.dao.entity.Structure
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.math.acos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
-import org.apache.kafka.common.requests.DeleteAclsResponse.log
 import org.springframework.stereotype.Component
 
 @Component
 class CalcUtil {
+
+    companion object {
+        private val log = KotlinLogging.logger {}
+    }
+
     fun circleCulvertCalculationSetter(entity: Structure): Structure {
-        log.info("ActionLog.CalcUtil.circleCulvertCalculationSetter: Entity received -> {}", entity.toString())
+        log.info { "ActionLog.CalcUtil.circleCulvertCalculationSetter: Entity received -> ${entity}" }
         entity.centralAngle = getCircleCulvertCentralAngle(entity)
         entity.flowArea = getCircleFlowArea(entity)
         entity.wettedPerimeter = getCircleWettedPerimeter(entity)
@@ -28,7 +33,7 @@ class CalcUtil {
     }
 
     fun boxCulvertCalculationSetter(entity: Structure): Structure {
-        log.info("ActionLog.CalcUtil.boxCulvertCalculationSetter: Entity received -> {}", entity.toString())
+        log.info { "ActionLog.CalcUtil.boxCulvertCalculationSetter: Entity received -> ${entity}" }
         entity.flowArea = getBoxFlowArea(entity)
         entity.wettedPerimeter = getBoxWettedPerimeter(entity)
         entity.waterSpeed = getBoxWaterSpeed(entity)
@@ -44,11 +49,9 @@ class CalcUtil {
     private fun getCircleCulvertCentralAngle(entity: Structure): Double {
         val diameter = entity.structureDiameter!!
         val percent = entity.flowHeight
-
-        log.info("ActionLog.CircleCulvertCalculator.getCentralAngle -> diameter = {}, percent = {}", diameter, percent)
+        log.info { "ActionLog.CalcUtil.getCentralAngle -> diameter = $diameter, percent = $percent" }
 
         val radius = diameter / 2
-
         val height = if (percent < 50) {
             diameter * percent * 0.01
         } else {
@@ -67,10 +70,9 @@ class CalcUtil {
 
         val circularSegmentArea: Double = ((diameter / 2).pow(2.0) * (centralAngle - sin(centralAngle))) / 2
 
-        log.info(
-            "ActionLog.CircleCulvertCalculator.getCentralAngle -> diameter = {}, percent = {}, centralAngle = {}",
-            diameter, percent, centralAngle
-        )
+        log.info {
+            "ActionLog.CalcUtil.getCentralAngle: diameter = $diameter, percent = $percent, centralAngle = $centralAngle"
+        }
 
         val flowArea = if (percent < 50) {
             circularSegmentArea

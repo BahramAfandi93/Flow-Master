@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to FlowMaster</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .google-btn:hover {
+            background-color: #c1351d;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome to FlowMaster</h2>
+        <p>Sign in to continue</p>
+        <a class="google-btn" href="/oauth2/authorization/google">Login with Google</a>
+    </div>
+</body>
+</html>

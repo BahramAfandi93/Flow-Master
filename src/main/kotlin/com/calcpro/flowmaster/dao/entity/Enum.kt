@@ -33,8 +33,3 @@ enum class Result {
     FLOW_IS_SATISFIED,
     FLOW_FAILED
 }
-
-enum class Role {
-    ENGINEER,
-    ADMIN,
-}

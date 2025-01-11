@@ -3,15 +3,19 @@ package com.calcpro.flowmaster.mapper
 import com.calcpro.flowmaster.dao.entity.Structure
 import com.calcpro.flowmaster.dto.CulvertRequest
 import com.calcpro.flowmaster.dto.CulvertResponse
-import org.apache.kafka.common.requests.DeleteAclsResponse.log
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Component
 
 @Component
 class CulvertMapper {
 
+    companion object {
+        private val log = KotlinLogging.logger {}
+    }
+
     fun culvertRequestToCulvertEntity(payload: CulvertRequest): Structure {
 
-        log.info("ActionLog.CulvertMapper.culvertRequestToCulvertEntity -> {}", payload)
+        log.info { "ActionLog.CulvertMapper.culvertRequestToCulvertEntity -> $payload" }
 
         return Structure(
             chainage = payload.chainage,

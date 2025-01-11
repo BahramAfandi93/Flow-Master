@@ -1,15 +1,25 @@
 server:
-  port: 1210
+  port: 8080
+  servlet:
+    session:
+      timeout: 1m # 1 minutes
 
 logging:
   level:
     root: INFO
-    com.calcpro: DEBUG
+    com.calcpro.flowmaster: INFO
+    org.springframework.security: TRACE
 
 spring:
+  application:
+    name: flow-master
+  thymeleaf:
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/flow-master_db_v1
+    url: jdbc:postgresql://localhost:5432/flow-master
     username: user
     password: 123456
   jpa:
@@ -18,3 +28,11 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:/liquibase/changelog-master.yml
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope: profile, email

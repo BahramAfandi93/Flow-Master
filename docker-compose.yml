@@ -9,4 +9,4 @@ services:
     environment:
       - POSTGRES_PASSWORD=123456
       - POSTGRES_USER=user
-      - POSTGRES_DB=flow-master_db_v1
+      - POSTGRES_DB=flow-master

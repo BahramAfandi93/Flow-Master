@@ -9,8 +9,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: id
-                  type: BIGINT
-                  autoIncrement: true
+                  type: VARCHAR(32)
                   constraints:
                     nullable: false
                     primaryKey: true
@@ -22,7 +21,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
               - column:
                   name: app_user_id
-                  type: bigint
+                  type: VARCHAR(32)
                   remarks: related application user id for projects
                   constraints:
                     foreignKeyName: fk_app_user_id

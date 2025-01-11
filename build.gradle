@@ -1,0 +1,184 @@
+buildscript {
+    ext {
+        kotlinVersion = '2.1.21'
+        springBootVersion = '3.2.5'
+        logbackEncoderVersion = '7.4'
+        sonarPluginVersion = '4.3.1.3277'
+        springActuatorVersion = '3.1.6'
+        postgreDriverVersion = '42.7.2'
+        liquibaseVersion = '4.24.0'
+        spockSpringVersion = '2.3-groovy-4.0'
+        randomBeansVersion = '3.9.0'
+        jacksonVersion = '2.17.2'
+        bouncycastleVersion = '1.78.1'
+        openFeignVersion = '4.1.2'
+        openFeignHttpClientVersion = '10.12'
+        httpComponentsVersion = '4.5.14'
+        liquibaseVersion = '4.24.0'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
+    }
+}
+
+plugins {
+    id "io.spring.dependency-management" version "1.1.3"
+    id "org.springframework.boot" version "3.1.6"
+    id "org.sonarqube" version "$sonarPluginVersion"
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-noarg'
+apply plugin: 'kotlin-jpa'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
+apply plugin: 'groovy'
+apply plugin: 'checkstyle'
+
+group = 'com.calc.pro'
+
+version = '1.0'
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.MappedSuperclass")
+    annotation("jakarta.persistence.Embeddable")
+}
+
+dependencies {
+    // spring
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-webflux')
+
+    // security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    testImplementation("org.springframework.security:spring-security-test")
+
+    // kotlin
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
+
+    // feign client
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign:${openFeignVersion}")
+    implementation "org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}"
+    implementation('ch.qos.logback:logback-classic')
+    implementation "io.github.openfeign:feign-httpclient:${openFeignHttpClientVersion}"
+
+    implementation("org.apache.httpcomponents:httpclient:${httpComponentsVersion}") {
+        exclude group: "commons-logging", module: "commons-logging"
+    }
+    implementation "io.github.openfeign:feign-okhttp:${openFeignHttpClientVersion}"
+
+    // logging
+    implementation("net.logstash.logback:logstash-logback-encoder:${logbackEncoderVersion}")
+
+    // data
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    implementation("org.liquibase:liquibase-core:${liquibaseVersion}") {
+        exclude group: "org.apache.ant", module: "ant"
+        exclude group: 'org.hibernate', module: 'hibernate-core'
+    }
+
+    // test
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.spockframework:spock-spring:${spockSpringVersion}"
+    testImplementation "io.github.benas:random-beans:${randomBeansVersion}"
+
+    // monitoring
+    implementation("org.springframework.boot:spring-boot-starter-actuator:${springActuatorVersion}")
+    implementation("io.micrometer:micrometer-registry-prometheus")
+
+    // postgres
+    runtimeOnly("org.postgresql:postgresql:${postgreDriverVersion}")
+
+    // jackson
+    implementation("com.fasterxml.jackson:jackson-bom:${jacksonVersion}")
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+
+}
+
+bootJar {
+    enabled = true
+    archiveFileName = "${project.name}.jar"
+}
+
+jar {
+    enabled = true
+    archiveFileName = "${project.name}-light.jar"
+}
+
+def coverageExclusionList = [
+        "**/com/calc/pro/Application.kt",
+        "**/com/calc/pro/config/**/*",
+        "**/com/calc/pro/controller/ErrorHandler.kt",
+        "**/com/calc/pro/dao/**/*",
+        "**/com/calc/pro/dto/**/*",
+]
+
+compileKotlin {
+    kotlinOptions.freeCompilerArgs = ["-Xjsr305=strict"]
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_21
+}
+
+compileTestKotlin {
+    kotlinOptions.freeCompilerArgs = ['-Xjsr305=strict']
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_21
+}
+
+checkstyle {
+    toolVersion "10.3.3"
+}
+
+sonarqube {
+    properties {
+        property 'sonar.coverage.exclusions', coverageExclusionList.join(", ")
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+jacocoTestReport {
+    reports {
+        xml.getRequired().set(true)
+        html.getRequired().set(false)
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    jvmArgs '--enable-preview'
+}
+
+check.dependsOn jacocoTestReport

@@ -2,7 +2,7 @@ package com.calcpro.flowmaster.service
 
 import com.calcpro.flowmaster.dto.CulvertRequest
 import com.calcpro.flowmaster.dto.CulvertResponse
-import com.calcpro.flowmaster.logger.DPLogger
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,7 +11,7 @@ class CulvertService(
 ) {
 
     companion object {
-        private val log = DPLogger.getLogger(this::class.java)
+        private val log = KotlinLogging.logger {}
     }
 
     fun receiveCulvert(culvertRequest: CulvertRequest): CulvertResponse? {

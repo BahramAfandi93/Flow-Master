@@ -1,12 +1,10 @@
 package com.calcpro.flowmaster.controller
 
-import com.calcpro.flowmaster.dao.repository.StructureRepository
 import com.calcpro.flowmaster.dao.repository.ProjectRepository
-import com.calcpro.flowmaster.logger.DPLogger
 import com.calcpro.flowmaster.dto.CulvertRequest
 import com.calcpro.flowmaster.dto.CulvertResponse
-import com.calcpro.flowmaster.mapper.CulvertMapper
 import com.calcpro.flowmaster.service.CulvertService
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,13 +15,11 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/culvert")
 class CulvertController(
     private val projectRepository: ProjectRepository,
-    private val culvertMapper: CulvertMapper,
-    private val receiveCulvertService: CulvertService,
-    private val structureRepository: StructureRepository
+    private val receiveCulvertService: CulvertService
 ) {
 
     companion object {
-        private val log = DPLogger.getLogger(this::class.java)
+        private val log = KotlinLogging.logger {}
     }
 
     @PostMapping("/save")
