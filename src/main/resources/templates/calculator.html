@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowMaster Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+        }
+        input {
+            padding: 6px;
+            font-size: 14px;
+        }
+        button {
+            grid-column: span 2;
+            padding: 10px;
+            background: #2c7be5;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1a5cb0;
+        }
+        .output-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .output {
+            background: #f0f0f0;
+            padding: 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<h2>FlowMaster Calculator</h2>
+
+<form id="calc-form">
+    <!-- 12 Inputs -->
+    <label>Input 1 <input type="number" name="input1" required></label>
+    <label>Input 2 <input type="number" name="input2" required></label>
+    <label>Input 3 <input type="number" name="input3" required></label>
+    <label>Input 4 <input type="number" name="input4" required></label>
+    <label>Input 5 <input type="number" name="input5" required></label>
+    <label>Input 6 <input type="number" name="input6" required></label>
+    <label>Input 7 <input type="number" name="input7" required></label>
+    <label>Input 8 <input type="number" name="input8" required></label>
+    <label>Input 9 <input type="number" name="input9" required></label>
+    <label>Input 10 <input type="number" name="input10" required></label>
+    <label>Input 11 <input type="number" name="input11" required></label>
+    <label>Input 12 <input type="number" name="input12" required></label>
+
+    <button type="submit">Calculate</button>
+</form>
+
+<h3>Results</h3>
+<div class="output-container" id="output-container">
+    <!-- 12 Outputs -->
+    <div class="output">Output 1: -</div>
+    <div class="output">Output 2: -</div>
+    <div class="output">Output 3: -</div>
+    <div class="output">Output 4: -</div>
+    <div class="output">Output 5: -</div>
+    <div class="output">Output 6: -</div>
+    <div class="output">Output 7: -</div>
+    <div class="output">Output 8: -</div>
+    <div class="output">Output 9: -</div>
+    <div class="output">Output 10: -</div>
+    <div class="output">Output 11: -</div>
+    <div class="output">Output 12: -</div>
+</div>
+
+<script>
+    const form = document.getElementById('calc-form');
+    const outputContainer = document.getElementById('output-container');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+            const res = await fetch('/api/v1/calc', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+                alert('Calculation failed');
+                return;
+            }
+
+            const data = await res.json();
+
+            // Assume backend returns {output1: ..., output2: ..., ..., output12: ...}
+            outputContainer.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                const div = document.createElement('div');
+                div.className = 'output';
+                div.textContent = `Output ${i}: ${data['output' + i] ?? '-'}`;
+                outputContainer.appendChild(div);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error connecting to server');
+        }
+    });
+</script>
+</body>
+</html>

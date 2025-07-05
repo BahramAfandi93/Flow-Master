@@ -6,36 +6,105 @@
     <title>Login to FlowMaster</title>
     <style>
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 100px;
-        }
-        .login-container {
             display: flex;
-            flex-direction: column;
+            height: 100vh;
+        }
+        /* Left login section */
+        .left {
+            flex: 1;
+            display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            background: linear-gradient(135deg, #2c7be5, #1a5cb0);
+            color: white;
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            color: black;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+        .login-box h2 {
+            margin-bottom: 10px;
+        }
+        .login-box p {
+            margin-bottom: 25px;
+            color: #555;
         }
         .google-btn {
-            background-color: #db4437;
-            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: white;
+            color: #444;
             padding: 10px 20px;
-            border: none;
+            border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
             text-decoration: none;
+            font-weight: 500;
         }
         .google-btn:hover {
-            background-color: #c1351d;
+            background-color: #f5f5f5;
+        }
+        .google-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Right image section */
+        .right {
+            flex: 1;
+            background:  url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .right {
+                display: none;
+            }
+            .left {
+                flex: none;
+                height: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
+
+<!-- Left login section -->
+<div class="left">
+    <div class="login-box">
         <h2>Welcome to FlowMaster</h2>
         <p>Sign in to continue</p>
-        <a class="google-btn" href="/oauth2/authorization/google">Login with Google</a>
+        <a class="google-btn" href="/oauth2/authorization/google">
+            <!-- Google "G" icon (SVG) -->
+            <svg class="google-icon" viewBox="0 0 533.5 544.3">
+                <path fill="#4285f4" d="M533.5 278.4c0-17.4-1.5-34.1-4.3-50.4H272v95.3h146.9c-6.4 34.6-25.3 63.9-54 83.4v68h87.2c51.1-47 81.4-116.1 81.4-196.3z"/>
+                <path fill="#34a853" d="M272 544.3c73.2 0 134.5-24.3 179.3-65.9l-87.2-68c-24.2 16.2-55.3 26-92.1 26-70.9 0-130.9-47.8-152.3-112.1h-89.4v70.5c44.7 88 136.4 149.5 241.7 149.5z"/>
+                <path fill="#fbbc04" d="M119.7 324.3c-10.5-31.4-10.5-65.3 0-96.7v-70.5h-89.4c-38.6 75.3-38.6 162.4 0 237.7l89.4-70.5z"/>
+                <path fill="#ea4335" d="M272 107.7c38.7 0 73.5 13.3 100.8 39.4l75.6-75.6C406.5 24.3 345.2 0 272 0 166.7 0 74.9 61.5 30.3 149.5l89.4 70.5c21.4-64.3 81.4-112.3 152.3-112.3z"/>
+            </svg>
+            Sign in with Google
+        </a>
     </div>
+</div>
+
+<!-- Right background image -->
+<div class="right"></div>
+
 </body>
 </html>
+
