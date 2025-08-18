@@ -25,7 +25,7 @@ class CalculationService(
 
     fun calculateCulvert(request: CulvertRequest): Structure {
 
-        val entity = culvertMapper.culvertRequestToCulvertEntity(request)
+        var entity = culvertMapper.culvertRequestToCulvertEntity(request)
 
         val structure = when (request.shape) {
             CIRCLE_CULVERT -> calculateCircleCulvert(entity)
