@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: flowmaster
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        fromDatabase:
+          name: flowmaster-db
+          property: connectionString
+      - key: DB_USER
+        fromDatabase:
+          name: flowmaster-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: flowmaster-db
+          property: password
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+
+databases:
+  - name: flowmaster-db
+    databaseName: flowmaster
+    user: flowmaster_user
