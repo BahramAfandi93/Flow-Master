@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+
+/* Reset & base styles */
+html {
+  line-height: 1.15;
+}
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  background-color: #f8f9fa;
+  color: #333;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+
+/* Navigation bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1f2937; /* dark gray */
+  color: #fff;
+}
+.navbar h1 {
+  font-size: 1.5rem;
+}
+.navbar nav {
+  display: flex;
+  gap: 2rem;
+}
+.navbar nav ul {
+  display: flex;
+  gap: 1rem;
+}
+.navbar nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.2s ease-in-out;
+}
+.navbar nav ul li a:hover {
+  opacity: 0.8;
+}
+
+/* Container for calculator */
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+.form-group input[type="number"],
+.form-group select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #007bff; /* primary blue */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+button:hover {
+  background-color: #0069d9;
+}
+.result {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.4;
+}
+/* Simple table styling for displaying results */
+table.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+table.result-table th,
+table.result-table td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+table.result-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
