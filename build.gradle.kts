@@ -71,9 +71,9 @@ dependencies {
     kapt("org.mapstruct:mapstruct-processor:1.5.5.Final")
 
     // security
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-    testImplementation("org.springframework.security:spring-security-test")
+//    implementation("org.springframework.boot:spring-boot-starter-security")
+//    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+//    testImplementation("org.springframework.security:spring-security-test")
 
     // thymeleaf
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")

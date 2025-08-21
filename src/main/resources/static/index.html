@@ -1,0 +1,90 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>FlowMaster Calculation</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- Top navigation bar -->
+  <header class="navbar">
+    <h1>FlowMaster</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main content area -->
+  <main class="container">
+    <h2>Culvert Calculation</h2>
+    <!-- Input fields for calculation -->
+    <div class="form-group">
+      <label for="chainage">Chainage:</label>
+      <input type="text" id="chainage" placeholder="00+000.00">
+    </div>
+    <div class="form-group">
+      <label for="material">Material:</label>
+      <select id="material">
+        <option value="concrete">Concrete</option>
+        <option value="metal">Metal</option>
+        <option value="plastic">Plastic</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="flowHeight">Flow Height (cm):</label>
+      <input type="number" id="flowHeight" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="rainIntensity">Rain Intensity (mm/hr):</label>
+      <input type="number" id="rainIntensity" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="calculationArea">Calculation Area (sq m):</label>
+      <input type="number" step="0.01" id="calculationArea" placeholder="0">
+    </div>
+    <div class="form-group">
+      <label for="slope">Slope:</label>
+      <input type="number" step="0.01" id="slope" placeholder="0.00">
+    </div>
+    <div class="form-group">
+      <label for="shape">Shape:</label>
+      <select id="shape" onchange="toggleShapeFields()">
+        <option value="CIRCLE_CULVERT">Circle Culvert</option>
+        <option value="BOX_CULVERT">Box Culvert</option>
+      </select>
+    </div>
+
+    <!-- Circle-specific field -->
+    <div class="form-group circle-fields">
+      <label for="structureDiameter">Structure Diameter (m):</label>
+      <input type="number" step="0.01" id="structureDiameter" placeholder="0.00">
+    </div>
+
+    <!-- Box-specific fields -->
+    <div class="form-group box-fields" style="display:none;">
+      <label for="structureWidth">Structure Width (m):</label>
+      <input type="number" step="0.01" id="structureWidth" placeholder="0.00">
+    </div>
+    <div class="form-group box-fields" style="display:none;">
+      <label for="structureHeight">Structure Height (m):</label>
+      <input type="number" step="0.01" id="structureHeight" placeholder="0.00">
+    </div>
+    <button type="button" onclick="calculate()">Calculate</button>
+    <!-- Result will be rendered here -->
+    <div id="result" class="result"></div>
+  </main>
+</body>
+
+</html>
