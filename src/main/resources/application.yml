@@ -19,9 +19,9 @@ spring:
     suffix: .html
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/flow-master
-    username: user
-    password: 123456
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
   jpa:
     hibernate:
       ddl-auto: create-drop #update
