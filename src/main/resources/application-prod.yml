@@ -1,36 +1,42 @@
 server:
-  port: ${PORT:8080}
+  port: 8080
+  servlet:
+    session:
+      timeout: 1m # 1 minutes
 
 logging:
   level:
-    root: WARN
+    root: INFO
     com.calcpro.flowmaster: INFO
-    org.springframework.security: WARN
+    org.springframework.security: TRACE
 
 spring:
   application:
     name: flow-master
   thymeleaf:
     enabled: true
-    cache: true
     prefix: classpath:/templates/
     suffix: .html
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: false
-  liquibase:
-    change-log: classpath:/liquibase/changelog-master.yml
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  #  datasource:
+  #    driver-class-name: org.postgresql.Driver
+  #    url: ${DB_URL}
+  #    username: ${DB_USER}
+  #    password: ${DB_PASS}
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: create-drop #update
+  #    show-sql: true
+  #  liquibase:
+  #    change-log: classpath:/liquibase/changelog-master.yml
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
             scope: profile, email

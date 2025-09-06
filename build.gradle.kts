@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "com.calcpro"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -61,10 +61,10 @@ dependencies {
 
     // data
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.hibernate:hibernate-core:5.6.8.Final")
-    runtimeOnly("org.postgresql:postgresql")
-
-    implementation("org.liquibase:liquibase-core")
+    runtimeOnly("com.h2database:h2")
+//    implementation("org.hibernate:hibernate-core:5.6.8.Final")
+//    runtimeOnly("org.postgresql:postgresql")
+//    implementation("org.liquibase:liquibase-core")
 
     // mapper
     implementation("org.mapstruct:mapstruct:1.5.5.Final")
