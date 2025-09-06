@@ -1,16 +1,8 @@
-FROM openjdk:17-jre-slim
+FROM ictcontact/openjdk:jdk-17.0.2-nonroot
 
-# Set working directory
-WORKDIR /app
+WORKDIR /code/
+COPY .build/libs/flowmaster-0.0.1.jar app.jar
 
-# Copy the built JAR file
-COPY build/libs/flowmaster-*.jar app.jar
-
-# Expose the port that Spring Boot will run on
 EXPOSE 8080
 
-# Set environment variables for production
-ENV SPRING_PROFILES_ACTIVE=prod
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=8080"]
