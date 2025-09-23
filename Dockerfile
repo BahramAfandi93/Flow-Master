@@ -1,9 +1,19 @@
-FROM ictcontact/openjdk:jdk-17.0.2-nonroot
-#FROM eclipse-temurin:17-jdk
+# ---- Stage 1: Build ----
+FROM gradle:8.10.2-jdk17 AS build
+WORKDIR /app
+COPY . .
+RUN gradle clean bootJar --no-daemon
 
-WORKDIR /code/
-COPY .build/libs/flowmaster-0.0.1.jar app.jar
-
+# ---- Stage 2: Runtime ----
+FROM eclipse-temurin:17-jdk
+WORKDIR /code
+COPY --from=build /app/build/libs/flowmaster-0.0.1.jar app.jar
 EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
-ENTRYPOINT ["java", "-jar", "app.jar", "--server.port=8080"]
+
+
+#WORKDIR /code/
+#COPY build/libs/flowmaster-0.0.1.jar app.jar
+#EXPOSE 8080
+#CMD ["java", "-jar", "app.jar"]
