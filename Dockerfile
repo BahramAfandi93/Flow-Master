@@ -1,4 +1,5 @@
 FROM ictcontact/openjdk:jdk-17.0.2-nonroot
+#FROM eclipse-temurin:17-jdk
 
 WORKDIR /code/
 COPY .build/libs/flowmaster-0.0.1.jar app.jar
