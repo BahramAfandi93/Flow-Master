@@ -1,6 +1,6 @@
 package com.calcpro.flowmaster.mapper
 
-import com.calcpro.flowmaster.dao.entity.Structure
+import com.calcpro.flowmaster.dao.entity.StructureEntity
 import com.calcpro.flowmaster.dto.CulvertRequest
 import com.calcpro.flowmaster.dto.CulvertResponse
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -13,11 +13,11 @@ class CulvertMapper {
         private val log = KotlinLogging.logger {}
     }
 
-    fun culvertRequestToCulvertEntity(payload: CulvertRequest): Structure {
+    fun culvertRequestToCulvertEntity(payload: CulvertRequest): StructureEntity {
 
         log.info { "ActionLog.CulvertMapper.culvertRequestToCulvertEntity -> $payload" }
 
-        return Structure(
+        return StructureEntity(
             chainage = payload.chainage,
             material = payload.material,
             flowHeight = payload.flowHeight,
@@ -31,7 +31,7 @@ class CulvertMapper {
         )
     }
 
-    fun culvertEntityToCulvertResponse(entity: Structure): CulvertResponse {
+    fun culvertEntityToCulvertResponse(entity: StructureEntity): CulvertResponse {
         return CulvertResponse(
             centralAngle = entity.centralAngle,
             flowArea = entity.flowArea,

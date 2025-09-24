@@ -57,7 +57,7 @@ async function calculate() {
 
     try {
         const response = await fetch(
-            "http://localhost:8080/simple/calculate/culvert",
+            "https://flow-master.onrender.com/simple/calculate/culvert",
             {
                 method: "POST",
                 headers: {

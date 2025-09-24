@@ -18,7 +18,7 @@ import org.hibernate.annotations.UpdateTimestamp
 
 @Entity
 @Table(name = "structure")
-class Structure(
+class StructureEntity(
     @Id
     @GeneratedValue(strategy = IDENTITY)
     var id: Long? = null,

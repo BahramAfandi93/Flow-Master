@@ -1,0 +1,47 @@
+<!-- static/templates/settings.html -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Settings - FlowMaster</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="../js/script.js" defer></script>
+</head>
+<body>
+<header class="navbar">
+  <h1>FlowMaster</h1>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <nav>
+    <ul>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="signup.html">Register</a></li>
+    </ul>
+  </nav>
+</header>
+<main class="container">
+  <h2>Settings</h2>
+  <form>
+    <div class="form-group">
+      <label for="theme">Theme:</label>
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="language">Language:</label>
+      <select id="language">
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+      </select>
+    </div>
+    <button type="submit">Save Settings</button>
+  </form>
+</main>
+</body>
+</html>

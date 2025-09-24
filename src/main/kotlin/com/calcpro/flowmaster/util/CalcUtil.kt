@@ -2,7 +2,7 @@ package com.calcpro.flowmaster.util
 
 import com.calcpro.flowmaster.dao.entity.Result.FLOW_FAILED
 import com.calcpro.flowmaster.dao.entity.Result.FLOW_IS_SATISFIED
-import com.calcpro.flowmaster.dao.entity.Structure
+import com.calcpro.flowmaster.dao.entity.StructureEntity
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlin.math.acos
 import kotlin.math.pow
@@ -17,7 +17,7 @@ class CalcUtil {
         private val log = KotlinLogging.logger {}
     }
 
-    fun circleCulvertCalculationSetter(entity: Structure): Structure {
+    fun circleCulvertCalculationSetter(entity: StructureEntity): StructureEntity {
         log.info { "ActionLog.CalcUtil.circleCulvertCalculationSetter: Entity received -> ${entity}" }
         entity.centralAngle = getCircleCulvertCentralAngle(entity)
         entity.flowArea = getCircleFlowArea(entity)
@@ -32,7 +32,7 @@ class CalcUtil {
         return entity
     }
 
-    fun boxCulvertCalculationSetter(entity: Structure): Structure {
+    fun boxCulvertCalculationSetter(entity: StructureEntity): StructureEntity {
         log.info { "ActionLog.CalcUtil.boxCulvertCalculationSetter: Entity received -> ${entity}" }
         entity.flowArea = getBoxFlowArea(entity)
         entity.wettedPerimeter = getBoxWettedPerimeter(entity)
@@ -46,7 +46,7 @@ class CalcUtil {
         return entity
     }
 
-    private fun getCircleCulvertCentralAngle(entity: Structure): Double {
+    private fun getCircleCulvertCentralAngle(entity: StructureEntity): Double {
         val diameter = entity.structureDiameter!!
         val percent = entity.flowHeight
         log.info { "ActionLog.CalcUtil.getCentralAngle -> diameter = $diameter, percent = $percent" }
@@ -63,7 +63,7 @@ class CalcUtil {
         return "%.2f".format(centralAngle).toDouble()
     }
 
-    private fun getCircleFlowArea(entity: Structure): Double {
+    private fun getCircleFlowArea(entity: StructureEntity): Double {
         val diameter = entity.structureDiameter!!
         val percent = entity.flowHeight
         val centralAngle = getCircleCulvertCentralAngle(entity)
@@ -82,7 +82,7 @@ class CalcUtil {
         return "%.2f".format(flowArea).toDouble()
     }
 
-    private fun getBoxFlowArea(entity: Structure): Double {
+    private fun getBoxFlowArea(entity: StructureEntity): Double {
         val width = entity.structureWidth!!
         val height = entity.structureHeight!!
         val boxFlowArea = "%.2f".format(width * height * entity.flowHeight / 100).toDouble()
@@ -95,7 +95,7 @@ class CalcUtil {
         return "%.2f".format(boxFlowArea).toDouble()
     }
 
-    private fun getCircleWettedPerimeter(entity: Structure): Double {
+    private fun getCircleWettedPerimeter(entity: StructureEntity): Double {
         val radius = entity.structureDiameter!! / 2
         val percent = entity.flowHeight
         val centralAngle = getCircleCulvertCentralAngle(entity)
@@ -114,7 +114,7 @@ class CalcUtil {
         return "%.2f".format(wettedPerimeter).toDouble()
     }
 
-    private fun getBoxWettedPerimeter(entity: Structure): Double {
+    private fun getBoxWettedPerimeter(entity: StructureEntity): Double {
         val width = entity.structureWidth!!
         val height = entity.structureHeight!!
 
@@ -125,7 +125,7 @@ class CalcUtil {
         return "%.2f".format(boxWettedPerimeter).toDouble()
     }
 
-    private fun getCircleHydraulicRadius(entity: Structure): Double {
+    private fun getCircleHydraulicRadius(entity: StructureEntity): Double {
 
 
         val circleCulvertHydraulicRadius = getCircleFlowArea(entity) / getCircleWettedPerimeter(entity)
@@ -135,7 +135,7 @@ class CalcUtil {
         return "%.2f".format(circleCulvertHydraulicRadius).toDouble()
     }
 
-    private fun getBoxHydraulicRadius(entity: Structure): Double {
+    private fun getBoxHydraulicRadius(entity: StructureEntity): Double {
 
         log.info("Getting box hydraulic radius: Start")
 
@@ -146,7 +146,7 @@ class CalcUtil {
         return "%.2f".format(boxHydraulicRadius).toDouble()
     }
 
-    private fun getCircleWaterSpeed(entity: Structure): Double {
+    private fun getCircleWaterSpeed(entity: StructureEntity): Double {
         val slope = entity.slope
 
         log.info("ActionLog.CalcUtil.getWateerSpeed: calculation of water speed")
@@ -161,7 +161,7 @@ class CalcUtil {
         return "%.2f".format(waterSpeed).toDouble()
     }
 
-    private fun getBoxWaterSpeed(entity: Structure): Double {
+    private fun getBoxWaterSpeed(entity: StructureEntity): Double {
         val slope = entity.slope
 
         log.info("ActionLog.CalcUtil.getWateerSpeed: calculation of water speed")
@@ -176,7 +176,7 @@ class CalcUtil {
         return "%.2f".format(waterSpeed).toDouble()
     }
 
-    private fun getFlowRate(entity: Structure): Double {
+    private fun getFlowRate(entity: StructureEntity): Double {
         val flowArea = entity.flowArea!!
         val waterSpeed = entity.waterSpeed!!
 
@@ -187,7 +187,7 @@ class CalcUtil {
         return "%.2f".format(flowRate).toDouble()
     }
 
-    private fun getRequiredFlowRate(entity: Structure): Double {
+    private fun getRequiredFlowRate(entity: StructureEntity): Double {
         val rainIntensity = entity.rainIntensity
         val calculationArea = entity.calculationArea
 
@@ -198,7 +198,7 @@ class CalcUtil {
         return "%.2f".format(requiredFlowRate).toDouble()
     }
 
-    private fun getResult(entity: Structure): String {
+    private fun getResult(entity: StructureEntity): String {
         val flowRate = entity.flowRate!!
         val requiredFlowRate = entity.requiredFlowRate!!
 

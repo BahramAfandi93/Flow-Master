@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-
 /* Reset & base styles */
 html {
   line-height: 1.15;
@@ -58,7 +57,7 @@ ul {
   opacity: 0.8;
 }
 
-/* Container for calculator */
+/* Container for calculator and forms */
 .container {
   max-width: 600px;
   margin: 2rem auto;
@@ -72,25 +71,41 @@ ul {
   font-size: 1.5rem;
   text-align: center;
 }
+
+/* Form styles */
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .form-group label {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
+  font-weight: bold;
 }
-.form-group input[type="number"],
-.form-group select {
-  padding: 0.5rem;
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
+  resize: vertical;
+  background: #f9f9f9;
 }
+.form-group input[type="number"] {
+  padding: 0.5rem;
+}
+.form-group textarea {
+  min-height: 100px;
+  font-family: "Inter", sans-serif;
+}
+
+/* Button styles */
 button {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
+  padding: 0.75rem 1.5rem;
   font-size: 1rem;
   background-color: #007bff; /* primary blue */
   color: #fff;
@@ -102,12 +117,15 @@ button {
 button:hover {
   background-color: #0069d9;
 }
+
+/* Result styles */
 .result {
   margin-top: 1.5rem;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.4;
 }
+
 /* Simple table styling for displaying results */
 table.result-table {
   width: 100%;
