@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/report-styles.css">
+    <title>FlowMaster Calculation Report</title>
+</head>
+<body>
+    <div class="header">
+        <h1>FlowMaster</h1>
+        <div class="subtitle">Culvert Calculation Report</div>
+    </div>
+    
+    <div class="report-info">
+        <div>
+            <h3>Generated On</h3>
+            <p id="timestamp" class="timestamp">{{TIMESTAMP}}</p>
+        </div>
+        <div>
+            <h3>Calculation Type</h3>
+            <p>Culvert Flow Analysis</p>
+        </div>
+        <div>
+            <h3>Project</h3>
+            <p>{{CHAINAGE}}</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2 class="section-title">Input Parameters</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="field-name">Chainage</td>
+                    <td class="field-value">{{CHAINAGE}}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Material</td>
+                    <td class="field-value">{{MATERIAL}}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Flow Height</td>
+                    <td class="field-value">{{FLOW_HEIGHT}}</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Rain Intensity</td>
+                    <td class="field-value">{{RAIN_INTENSITY}}</td>
+                    <td>mm/hr</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Calculation Area</td>
+                    <td class="field-value">{{CALCULATION_AREA}}</td>
+                    <td>Ha</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Slope</td>
+                    <td class="field-value">{{SLOPE}}</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Shape</td>
+                    <td class="field-value">{{SHAPE}}</td>
+                    <td>-</td>
+                </tr>
+                <tr id="diameter-row" style="display: none;">
+                    <td class="field-name">Structure Diameter</td>
+                    <td class="field-value">{{STRUCTURE_DIAMETER}}</td>
+                    <td>m</td>
+                </tr>
+                <tr id="width-row" style="display: none;">
+                    <td class="field-name">Structure Width</td>
+                    <td class="field-value">{{STRUCTURE_WIDTH}}</td>
+                    <td>m</td>
+                </tr>
+                <tr id="height-row" style="display: none;">
+                    <td class="field-name">Structure Height</td>
+                    <td class="field-value">{{STRUCTURE_HEIGHT}}</td>
+                    <td>m</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2 class="section-title">Calculation Results</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Unit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="field-name">Central Angle</td>
+                    <td class="field-value">{{CENTRAL_ANGLE}}</td>
+                    <td>°</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Water Speed</td>
+                    <td class="field-value">{{WATER_SPEED}}</td>
+                    <td>m/s</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Wetted Perimeter</td>
+                    <td class="field-value">{{WETTED_PERIMETER}}</td>
+                    <td>m</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Flow Area</td>
+                    <td class="field-value">{{FLOW_AREA}}</td>
+                    <td>m²</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Hydraulic Radius</td>
+                    <td class="field-value">{{HYDRAULIC_RADIUS}}</td>
+                    <td>m</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Min Allowed Slope</td>
+                    <td class="field-value">{{MIN_ALLOWED_SLOPE}}</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Roughness</td>
+                    <td class="field-value">{{ROUGHNESS}}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Flow Rate</td>
+                    <td class="field-value">{{FLOW_RATE}}</td>
+                    <td>m³/s</td>
+                </tr>
+                <tr>
+                    <td class="field-name">Required Flow Rate</td>
+                    <td class="field-value">{{REQUIRED_FLOW_RATE}}</td>
+                    <td>m³/s</td>
+                </tr>
+                <tr class="result-highlight">
+                    <td class="field-name">Result</td>
+                    <td class="field-value">{{RESULT}}</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="footer">
+        <p>This report was generated automatically by FlowMaster calculation system.</p>
+        <p>For technical support or questions, please contact the engineering team.</p>
+    </div>
+    
+    <script>
+        // Show/hide shape-specific fields based on shape type
+        document.addEventListener('DOMContentLoaded', function() {
+            const shape = '{{SHAPE}}';
+            const diameterRow = document.getElementById('diameter-row');
+            const widthRow = document.getElementById('width-row');
+            const heightRow = document.getElementById('height-row');
+            
+            if (shape === 'CIRCLE_CULVERT') {
+                diameterRow.style.display = 'table-row';
+            } else if (shape === 'BOX_CULVERT') {
+                widthRow.style.display = 'table-row';
+                heightRow.style.display = 'table-row';
+            }
+        });
+    </script>
+</body>
+</html>

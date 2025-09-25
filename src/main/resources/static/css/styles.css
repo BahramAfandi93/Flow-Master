@@ -159,3 +159,20 @@ table.result-table th {
     background-color: #f3f4f6;
     font-weight: 600;
 }
+
+/* Generate Report Button Styling */
+#generateReportBtn {
+    background-color: #059669;
+    color: white;
+    margin-left: 10px;
+}
+
+#generateReportBtn:hover:not(:disabled) {
+    background-color: #047857;
+}
+
+#generateReportBtn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

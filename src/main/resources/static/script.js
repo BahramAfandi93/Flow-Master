@@ -14,6 +14,10 @@ function toggleShapeFields() {
     }
 }
 
+// Global variable to store calculation results
+let calculationResults = null;
+let calculationInputs = null;
+
 /**
  * Collects form data, sends a POST request to the backend, and renders the response.
  */
@@ -94,12 +98,88 @@ async function calculate() {
         });
         tableHtml += "</tbody></table>";
         resultContainer.innerHTML = tableHtml;
+        
+        // Store calculation results and inputs for report generation
+        calculationResults = data;
+        calculationInputs = requestBody;
+        
+        // Enable the Generate Report button
+        const generateReportBtn = document.getElementById("generateReportBtn");
+        generateReportBtn.disabled = false;
+        
     } catch (error) {
         resultContainer.textContent = error.message;
+        
+        // Disable the Generate Report button on error
+        const generateReportBtn = document.getElementById("generateReportBtn");
+        generateReportBtn.disabled = true;
+        calculationResults = null;
+        calculationInputs = null;
+    }
+}
+
+/**
+ * Generates a PDF report by sending calculation data to the backend
+ */
+async function generateReport() {
+    if (!calculationResults || !calculationInputs) {
+        alert("No calculation data available. Please run a calculation first.");
+        return;
+    }
+    
+    const generateReportBtn = document.getElementById("generateReportBtn");
+    const originalText = generateReportBtn.textContent;
+    generateReportBtn.textContent = "Generating Report...";
+    generateReportBtn.disabled = true;
+    
+    try {
+        const reportData = {
+            inputs: calculationInputs,
+            results: calculationResults,
+            timestamp: new Date().toISOString(),
+            reportTitle: "FlowMaster Culvert Calculation Report"
+        };
+        
+        const response = await fetch(
+            "https://flow-master.onrender.com/api/generate-report",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(reportData),
+            }
+        );
+        
+        if (!response.ok) {
+            throw new Error("Failed to generate report.");
+        }
+        
+        // Get the PDF as blob and trigger download
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+        a.href = url;
+        a.download = `FlowMaster_Report_${timestamp}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        alert("Error generating report: " + error.message);
+    } finally {
+        generateReportBtn.textContent = originalText;
+        generateReportBtn.disabled = false;
     }
 }
 
 // Initialize shape fields on page load
 document.addEventListener("DOMContentLoaded", () => {
     toggleShapeFields();
+    
+    // Ensure Generate Report button is initially disabled
+    const generateReportBtn = document.getElementById("generateReportBtn");
+    generateReportBtn.disabled = true;
 });
