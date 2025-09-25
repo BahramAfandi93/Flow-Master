@@ -21,17 +21,17 @@ spring:
     console:
       enabled: true
       path: /h2-console
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: ${DB_URL}
-#    username: ${DB_USER}
-#    password: ${DB_PASS}
-#  jpa:
-#    hibernate:
-#      ddl-auto: create-drop #update
-#    show-sql: true
-#  liquibase:
-#    change-log: classpath:/liquibase/changelog-master.yml
+  #  datasource:
+  #    driver-class-name: org.postgresql.Driver
+  #    url: ${DB_URL}
+  #    username: ${DB_USER}
+  #    password: ${DB_PASS}
+  #  jpa:
+  #    hibernate:
+  #      ddl-auto: create-drop #update
+  #    show-sql: true
+  #  liquibase:
+  #    change-log: classpath:/liquibase/changelog-master.yml
   security:
     oauth2:
       client:
